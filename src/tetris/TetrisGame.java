@@ -9,13 +9,26 @@ package tetris;
  * @author stanislav.kostomarov
  */
 public class TetrisGame {
-    private boolean PushLeft(){
-        ;
+    AppletGame appletGame = new AppletGame();
+    Glass g;
+
+    TetrisGame() {
+        new JFrame();
+
+        this.g = new Glass();
     }
-    private boolean PushRight(){
-        ;
+    
+    public void PlayGame(){
+        g.StartGame();
+        for(;;){
+            if(!g.NextStep()) return;
+            //Sleep(1000);
+        }
     }
-    private boolean PushDown(){
-        ;
+
+    private static class JFrame {
+
+        public JFrame() {
+        }
     }
 }

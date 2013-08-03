@@ -5,38 +5,48 @@
 package tetris;
 
 public class FigureInGlass extends Figure {
-    private int squareSize, pixelsBetweenSqares;
+    private final int initialXInGlass = 10;
+    private final int initialYInGlass = 0;
+    
+    private int xInGlass, yInGlass; // Координаты X и Y фигуры в стакане
+    private Glass g;
 
-    private int xGlass;
-    private int yGlass;
-    private int xInGlass = 0, yInGlass = 0; // Координаты X и Y фигуры в стакане
+    FigureInGlass(Glass g, Figure f) {
+        super(f);
+        this.g = g;
 
-    FigureInGlass(int xGlass, int yGlass, int squareSize, int pixelsBetweenSqares, int xInGlass, int yInGlass, int color){
-        this(xGlass, yGlass, squareSize, pixelsBetweenSqares);
-        this.xInGlass               = xInGlass;
-        this.yInGlass               = yInGlass;
-        SetColor(color);
+        xInGlass = initialXInGlass;
+        yInGlass = initialYInGlass;
+        
         SetXY();
     }
-
-    FigureInGlass(int xGlass, int yGlass, int squareSize, int pixelsBetweenSqares) {
-        super();
-        this.xGlass                 = xGlass;
-        this.yGlass                 = yGlass;
-        this.squareSize             = squareSize;
-        this.pixelsBetweenSqares    = pixelsBetweenSqares;
+    
+    public void NextFigure(Figure f){
+        super.Copy(f);
+        this.xInGlass       = initialXInGlass;
+        this.yInGlass       = initialYInGlass;
+        SetXY();
     }
     
     public void FigureCopy(FigureInGlass f){
-        this.xGlass         = f.xGlass;
-        this.yInGlass       = f.yInGlass;
         super.Copy(f);
+        this.xInGlass       = f.xInGlass;
+        this.yInGlass       = f.yInGlass;
+        SetXY();
     }
     
     private void SetXY(){
-        int x = xGlass + (squareSize + pixelsBetweenSqares) * xInGlass;
-        int y = yGlass + (squareSize + pixelsBetweenSqares) * yInGlass;
+        int x = g.xGlass + (g.squareSize + g.pixelsBetweenSqares) * xInGlass;
+        int y = g.yGlass + (g.squareSize + g.pixelsBetweenSqares) * yInGlass;
         super.SetXY(x, y);
+    }
+    
+    public int GetXInGlass(){
+        return xInGlass;
+    }
+
+    public int GetYInGlass(){
+        return yInGlass;
     }
     
     public void MoveRight(){
@@ -52,5 +62,19 @@ public class FigureInGlass extends Figure {
     public void MoveDown(){
         yInGlass++;
         SetXY();
+    }
+    
+    public void RotateFigure(){
+        SetRotate((GetRotate() + 1)%4);
+    }
+    
+    public void Erase(){
+        // todo
+        super.Erase();
+    }
+    
+    public void Draw(){
+        // todo
+        super.Draw();
     }
 }
