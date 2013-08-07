@@ -40,22 +40,22 @@ public class Figure {
     final public boolean prototype[][][][] = {
         
         // Прямая
-        {{{false},{false},{true},{false}},
-         {{false},{false},{true},{false}},
-         {{false},{false},{true},{false}},
-         {{false},{false},{true},{false}}},
-        {{{false},{false},{false},{false}},
-         {{true },{true },{true },{true }},
-         {{false},{false},{false},{false}},
-         {{false},{false},{false},{false}}},
-        {{{false},{false},{true },{false}},
-         {{false},{false},{true },{false}},
-         {{false},{false},{true },{false}},
-         {{false},{false},{true },{false}}},
-        {{{false},{false},{false},{false}},
-         {{true },{true },{true },{true }},
-         {{false},{false},{false},{false}},
-         {{false},{false},{false},{false}}},
+        {{{false,false,true ,false},
+         {false,false,true ,false},
+         {false,false,true ,false},
+         {false,false,true ,false}},
+        {{false,false,false,false},
+         {true ,true ,true ,true },
+         {false,false,false,false},
+         {false,false,false,false}},
+        {{false,false,true ,false},
+         {false,false,true ,false},
+         {false,false,true ,false},
+         {false,false,true ,false}},
+        {{false,false,false,false},
+         {true ,true ,true ,true },
+         {false,false,false,false},
+         {false,false,false,false}}}};
 
         // Обратная буква Г
         {{{false},{true },{false},{false}},
@@ -165,7 +165,7 @@ public class Figure {
          {{false},{false},{false},{false}},
          {{false},{false},{false},{false}}}
         };
-
+*/
     Figure(){
         r           = new Random();
         SetRandomFigure();
