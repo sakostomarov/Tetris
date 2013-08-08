@@ -11,24 +11,17 @@ import java.awt.Color;
  * @author stanislav.kostomarov
  */
 public class Glass {
-    final int xGlass                = 200;
-    final int yGlass                = 200;
-    final int squareSize            = 20;
-    final int pixelsBetweenSqares   = 1;
-    final int initialXInGlass       = 10;
-    final int initialYInGlass       = 0;
-    final int initialFigureColor    = 100;
-    final int GLASS_HEIGHT          = 30;
-    final int GLASS_WIDTH           = 20;
-    final Color DEFAULT_COLOR       = Color.GRAY;
-    
-    private FigureInGlass mainFigure, additionalFigure, tempFigure;
-    private Figure nextFigure;
-    private Square squares[][];
+    private int squares[][];
     
     private boolean isGameActive    = false;
     
+    public boolean IsSquareSet(int x, int y){
+        if(sqares[y][x] == 0) return false;
+        else return true;
+    }
+    
     Glass(){
+        
         nextFigure = new Figure();
         mainFigure = new FigureInGlass(this, nextFigure);
         additionalFigure = new FigureInGlass(this, nextFigure);
@@ -160,4 +153,8 @@ public class Glass {
                    squares[y][x].ChangeSquare(true, f.GetColor());
                }
    }
+
+    void SetSqare(int x, int y, int color) {
+        squares[y][x] = color;
+    }
 }

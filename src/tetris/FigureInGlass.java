@@ -5,76 +5,86 @@
 package tetris;
 
 public class FigureInGlass extends Figure {
-    private final int initialXInGlass = 10;
-    private final int initialYInGlass = 0;
+    // Описание фигуры в стакане
+    private final int INITIAL_X_FIGURE_IN_GLASS   = 10; // Начальный X фигуры в стакане
+    private final int INITIAL_Y_FIGURE_IN_GLASS   = 0;  // Начальный Y фигуры в стакане
     
-    private int xInGlass, yInGlass; // Координаты X и Y фигуры в стакане
-    private Glass g;
-
-    FigureInGlass(Glass g, Figure f) {
-        super(f);
+    private int xInGlass, yInGlass;                     // Координаты X и Y фигуры в стакане
+    private Glass g;                                    // Ссылка на стакан
+    
+    FigureInGlass(Glass g) {
+        super();
         this.g = g;
-
-        xInGlass = initialXInGlass;
-        yInGlass = initialYInGlass;
+        SetInitialXY();
+    }
+    
+    private void SetInitialXY(){
+        xInGlass = INITIAL_X_FIGURE_IN_GLASS;
+        yInGlass = INITIAL_Y_FIGURE_IN_GLASS;
         
         SetXY();
     }
-    
-    public void NextFigure(Figure f){
-        super.Copy(f);
-        this.xInGlass       = initialXInGlass;
-        this.yInGlass       = initialYInGlass;
-        SetXY();
-    }
-    
-    public void FigureCopy(FigureInGlass f){
-        super.Copy(f);
-        this.xInGlass       = f.xInGlass;
-        this.yInGlass       = f.yInGlass;
-        SetXY();
-    }
-    
+
     private void SetXY(){
-        int x = g.xGlass + (g.squareSize + g.pixelsBetweenSqares) * xInGlass;
-        int y = g.yGlass + (g.squareSize + g.pixelsBetweenSqares) * yInGlass;
+        int x = X_GLASS + (SQARE_SIZE + PIXELS_BETWEEN_SQARES) * xInGlass;
+        int y = Y_GLASS + (SQARE_SIZE + PIXELS_BETWEEN_SQARES) * yInGlass;
         super.SetXY(x, y);
     }
-    
-    public int GetXInGlass(){
-        return xInGlass;
-    }
 
-    public int GetYInGlass(){
-        return yInGlass;
+    public void NextFigure(Figure f){
+        super.Copy(f);
+        SetInitialXY();
     }
     
-    public void MoveRight(){
-        xInGlass++;
-        SetXY();
+    private boolean CanBe(int x, int y, int r){
+        for(int i = 0; i < HEIGHT_IN_SQUARES; ++i)
+            for(int j = 0; j < WIDTH_IN_SQUARES; ++j)
+                if(prototype[figureId][r][i][j] && g.IsSquareSet(i + yInGlass, j + xInGlass))
+                    return false;
+        return true;
     }
     
-    public void MoveLeft(){
-        xInGlass--;
-        SetXY();
+    public boolean MoveRight(){
+        if(CanBe(xInGlass + 1, yInGlass, rotate)){
+            xInGlass++;
+            SetXY();
+            return true;
+        }
+        else return false;
     }
     
-    public void MoveDown(){
-        yInGlass++;
-        SetXY();
+    public boolean MoveLeft(){
+        if(CanBe(xInGlass - 1, yInGlass, rotate)){
+            xInGlass--;
+            SetXY();
+            return true;
+        }
+        else return false;
     }
     
-    public void RotateFigure(){
-        SetRotate((GetRotate() + 1)%4);
+    public boolean MoveDown(){
+        if(CanBe(xInGlass, yInGlass + 1, rotate)){
+            yInGlass++;
+            SetXY();
+            return true;
+        }
+        else return false;
     }
     
-    public void Erase(){
-        // todo
-        super.Erase();
+    public boolean RotateFigure(){
+        int r = (rotate + 1) % 4;
+        if(CanBe(xInGlass, yInGlass, r)){
+            rotate = r;
+            SetXY();
+            return true;
+        }
+        else return false;
     }
     
-    public void Draw(){
-        // todo
-        super.Draw();
+    public void WriteFigureInGlass(){
+        for(int i = 0; i < HEIGHT_IN_SQUARES; ++i)
+            for(int j = 0; j < WIDTH_IN_SQUARES; ++j)
+                if(prototype[figureId][rotate][i][j])
+                    g.SetSqare(i + yInGlass, j + xInGlass, color);
     }
 }

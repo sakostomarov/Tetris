@@ -4,18 +4,37 @@
  */
 package tetris;
 
+import java.awt.Color;
+
 /**
  *
- * @author Администратор
+ * @author stanislav.kostomarov
  */
-public class Tetris {
+public interface Tetris {
+    // Описание стакана
+    int GLASS_HEIGHT                = 30;   // Высота стакана
+    int GLASS_WIDTH                 = 20;   // Ширина стакана
+    int X_GLASS                     = 200;  // X стакана на экране
+    int Y_GLASS                     = 200;  // Y стакана на экране
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        TetrisGame game = new TetrisGame();
-        game.PlayGame();
-    }
+    // Описание квадратов
+    int SQARE_SIZE                  = 20;   // Размер квадрата
+    int PIXELS_BETWEEN_SQARES       = 1;    // Кол-во пикселей между квадратами
+    
+    int SCORE_X                     = 500;  // Координата X счета на экране
+    int SCORE_Y                     = 400;  // Координата Y счета на экране
+    
+    // Описание цветов
+    Color COLORS[] = {
+        Color.BLACK,
+        Color.GRAY,
+        Color.BLUE,
+        Color.CYAN,
+        Color.GREEN,
+        Color.PINK,
+        Color.RED,
+        Color.WHITE,
+        Color.YELLOW
+    };
+    int DEFAULT_COLOR           = 2;    // Индекс цвета по умолчанию
 }
